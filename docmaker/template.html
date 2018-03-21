@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="target-densitydpi=device-dpi">
+    <title><%= config.name %>-<%= config.title %></title>
+    <link rel="stylesheet" href="./assets/css/base.css">
+</head>
+<body>
+<div id="sidebar" class="interface">
+    <a class="toc_title" href="#">
+        <%= config.name %> <span class="version">(<%= config.version %>)</span>
+    </a>
+    <% if (config.homepage) { %>
+    <ul class="toc_section">
+        <li>» <a href="<%= config.homepage %>">HomePage</a></li>
+    </ul>
+    <% } %>
+    <% if (config.repository&&config.repository.url) { %>
+    <ul class="toc_section">
+        <li>» <a href="<%= config.repository.url %>">git repository</a></li>
+    </ul>
+    <% } %>
+    <a class="toc_title" href="#">
+        简介(introduction)
+    </a>
+    <% _.each(data, function(v, k) { %>
+    <a class="toc_title" href="#<%= k %>"><%= k %></a>
+    <ul class="toc_section">
+        <% _.each(v.items, function(item, i) { %>
+        <% if (item.name) { %>
+        <li>- <a href="#<%= k %>_<%= item.name %>"><%= item.name %></a></li>
+        <% } %>
+        <% }) %>
+    </ul>
+    <% }) %>
+
+</div>
+<div class="container">
+    <div class="Header">
+        <h1 class="Title"> <%= config.name %></h1>
+        <h2><%= config.title %></h2>
+        <div><%= config.description %></div>
+        <% if (config.author) { %>
+        <div><strong>Author:</strong>&nbsp;&nbsp;<%= config.author %></div>
+        <% } %>
+    </div>
+    <div id="documentation">
+
+        <% _.each(data, function(v, k) { %>
+        <h2 class="title" id="<%= k %>"><%= k %></h2>
+        <p><%= v.desc %></p>
+        <% if (v.example) { %>
+        <pre><%- v.example %></pre>
+        <% } %>
+        <% if (v.more) { %>
+        <pre><%- v.more %></pre>
+        <% } %>
+        <% _.each(v.items, function(item, i) { %>
+        <% if (item.name) { %>
+        <p id="<%= k %>_<%= item.name %>">
+            <b class="header"> - <%= item.name %></b><code><%- item.grammar %></code>
+            <br>
+            <%= item.desc %>
+        </p>
+        <% if (item.params && item.params.length) { %>
+        <pre><% _.each(item.params, function(vv, ii) { %>
+@<%- vv[0] %> {<%- vv[1] %>} <%- vv[2] %><% }) %></pre>
+        <% } %>
+        <% if (item.example) { %>
+        <pre><%- item.example %></pre>
+        <% } %>
+        <% if (item.more) { %>
+        <pre><%- item.more %></pre>
+        <% } %>
+        <% } %>
+        <% }) %>
+        <% }) %>
+    </div>
+</div>
+</body>
+</html>
