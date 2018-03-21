@@ -6,5 +6,7 @@
 ## use
 
    ismart mocker
+
    ismart doc:init
+
    ismart doc
