@@ -1,8 +1,7 @@
 {
   "name": "ismart-command",
   "title": "iSmart智能命令行工具集",
-  "version": "0.0.1",
-  "private": true,
+  "version": "0.0.2",
   "author": "ben.zeng@sharemarking.com",
   "bin": {
     "ismart": "./index.js"
