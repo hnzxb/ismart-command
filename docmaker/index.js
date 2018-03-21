@@ -3,7 +3,6 @@ var fs              = require("fs-extra");
 var _               = require("lodash");
 var path            = require("path");
 var inquirer        = require('inquirer');
-var stringifyObject = require('stringify-object');
 
 var Maker = {
     config : {
